@@ -1,29 +1,30 @@
 package com.github.rkhusainov.bashsongs.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "SONG")
+@Table(name = "song")
+@JsonPropertyOrder({"id", "name", "text", "info"})
 public class Song {
     @Id
-    @GeneratedValue
-    @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "TEXT")
     private String text;
 
-    @Column(name = "INFO")
     private String info;
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "SINGER_ID", nullable = false)
+    @JoinColumn(name = "singer_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Singer singer;
 
     public Song() {

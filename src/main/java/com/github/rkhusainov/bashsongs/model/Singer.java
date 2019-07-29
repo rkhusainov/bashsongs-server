@@ -6,9 +6,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import javax.persistence.*;
 
 @Entity
-@JsonPropertyOrder({"img-url", "id", "info", "name"})
+@Table(name = "singer")
+@JsonPropertyOrder({"id", "name", "info", "img-url"})
 public class Singer {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
