@@ -1,21 +1,56 @@
 package com.github.rkhusainov.bashsongs.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "SINGER")
+@JsonPropertyOrder({"img-url", "id", "info", "name"})
 public class Singer {
     @Id
-    @GeneratedValue
-    @Column(name = "ID", nullable = false)
     private int id;
 
-    @Column(name = "NAME")
     private String name;
 
-    @Column(name = "INFO")
     private String info;
 
-    @Column(name = "IMG_URL")
-    private String img_url;
+    @JsonProperty("img-url")
+    @Column(name = "img_url")
+    private String imgUrl;
+
+    public Singer() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 }

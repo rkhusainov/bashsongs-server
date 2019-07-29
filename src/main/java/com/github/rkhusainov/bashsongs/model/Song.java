@@ -1,5 +1,7 @@
 package com.github.rkhusainov.bashsongs.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,9 +21,13 @@ public class Song {
     @Column(name = "INFO")
     private String info;
 
+    @JsonManagedReference
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "SINGER_ID", nullable = false)
     private Singer singer;
+
+    public Song() {
+    }
 
     public int getId() {
         return id;
