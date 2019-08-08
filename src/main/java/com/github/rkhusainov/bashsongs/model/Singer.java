@@ -1,13 +1,10 @@
 package com.github.rkhusainov.bashsongs.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "singer")
-@JsonPropertyOrder({"id", "name", "info", "img-url"})
 public class Singer {
 
     @Id
@@ -18,9 +15,19 @@ public class Singer {
 
     private String info;
 
-    @JsonProperty("img-url")
     @Column(name = "img_url")
     private String imgUrl;
+
+    @OneToMany(targetEntity = Song.class, mappedBy = "singer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Song> songs = null;
+
+    public List<Song> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(List<Song> songs) {
+        this.songs = songs;
+    }
 
     public Singer() {
     }
@@ -56,4 +63,5 @@ public class Singer {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+
 }

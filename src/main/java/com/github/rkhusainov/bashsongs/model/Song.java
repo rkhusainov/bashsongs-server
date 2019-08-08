@@ -1,15 +1,11 @@
 package com.github.rkhusainov.bashsongs.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "song")
-@JsonPropertyOrder({"id", "name", "text", "info"})
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +17,14 @@ public class Song {
 
     private String info;
 
-    @JsonManagedReference
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "singer_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "singer_id")
     private Singer singer;
+
+    @JsonIgnore
+    public Singer getSinger() {
+        return singer;
+    }
 
     public Song() {
     }
@@ -62,11 +61,5 @@ public class Song {
         this.info = info;
     }
 
-    public Singer getSinger() {
-        return singer;
-    }
 
-    public void setSinger(Singer singer) {
-        this.singer = singer;
-    }
 }
