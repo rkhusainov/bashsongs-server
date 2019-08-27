@@ -11,5 +11,4 @@ import java.util.Optional;
 public interface SongRepository extends JpaRepository<Song, Integer> {
     List<Song> findBySingerId(Integer singerId);
 
-    Optional<Song> findById(Integer songId);
 }
