@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -22,8 +23,13 @@ public class SongController {
         return songRepository.findAll();
     }
 
-    @GetMapping("/singer/{singerId}/songs")
+    @GetMapping("/singers/{singerId}/songs")
     public List<Song> getAllSongsBySingerId(@PathVariable("singerId") int id) {
         return songRepository.findBySingerId(id);
+    }
+
+    @GetMapping("/songs/{songId}")
+    public List<Song> getSongById(@PathVariable("songId") int id) {
+        return songRepository.findAllById(Collections.singleton(id));
     }
 }
