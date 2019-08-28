@@ -17,6 +17,9 @@ public class Song {
 
     private String info;
 
+    @Column(name = "singer_id", insertable = false, updatable = false)
+    private int singer_id;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "singer_id")
     private Singer singer;
@@ -61,5 +64,11 @@ public class Song {
         this.info = info;
     }
 
+    public int getSinger_id() {
+        return singer_id;
+    }
 
+    public void setSinger_id(int singer_id) {
+        this.singer_id = singer_id;
+    }
 }
