@@ -5,29 +5,20 @@ import com.github.rkhusainov.bashsongs.repository.SearchRepository;
 import com.github.rkhusainov.bashsongs.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/")
-public class SongController {
+public class SongController implements WebMvcConfigurer {
 
     @Autowired
     private SongRepository songRepository;
 
     @Autowired
     private SearchRepository searchRepository;
-
-    /**
-     * Index main page.
-     */
-    @GetMapping("/")
-    @ResponseBody
-    public String index() {
-        return "Попробуйте найти в поиске: " +
-                "<a href='/songs/search?name=урал'>/songs/search?name=Урал</a>";
-    }
 
     @GetMapping("/songs")
     public List<Song> getAllSongs() {
@@ -47,11 +38,6 @@ public class SongController {
     @GetMapping("/songs/search")
     public List<Song> findSongByName(
             @RequestParam("name") String name) {
-//        String lowerName = name.toLowerCase();
-        if (name == null) {
-            return searchRepository.findAll();
-        } else {
-            return searchRepository.findByName(name);
-        }
+        return searchRepository.findByNameLikeIgnoreCase("%" + name + "%");
     }
 }
