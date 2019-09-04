@@ -2,11 +2,13 @@ package com.github.rkhusainov.bashsongs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class BashsongsApplication {
+public class BashsongsApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(BashsongsApplication.class, args);
     }
+
 }

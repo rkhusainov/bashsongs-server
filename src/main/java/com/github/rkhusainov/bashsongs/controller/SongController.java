@@ -1,22 +1,24 @@
 package com.github.rkhusainov.bashsongs.controller;
 
 import com.github.rkhusainov.bashsongs.model.Song;
+import com.github.rkhusainov.bashsongs.repository.SearchRepository;
 import com.github.rkhusainov.bashsongs.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Collections;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/")
-public class SongController {
+public class SongController implements WebMvcConfigurer {
 
-    private @Autowired
-    SongRepository songRepository;
+    @Autowired
+    private SongRepository songRepository;
+
+    @Autowired
+    private SearchRepository searchRepository;
 
     @GetMapping("/songs")
     public List<Song> getAllSongs() {
@@ -31,5 +33,11 @@ public class SongController {
     @GetMapping("/songs/{songId}")
     public List<Song> getSongById(@PathVariable("songId") int id) {
         return songRepository.findAllById(Collections.singleton(id));
+    }
+
+    @GetMapping("/songs/search")
+    public List<Song> findSongByName(
+            @RequestParam("name") String name) {
+        return searchRepository.findByNameLikeIgnoreCase("%" + name + "%");
     }
 }
