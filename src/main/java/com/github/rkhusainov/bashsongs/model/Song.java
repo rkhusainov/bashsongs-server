@@ -17,6 +17,9 @@ public class Song {
 
     private String info;
 
+    @Column(name = "singer_name")
+    private String singerName;
+
     @Column(name = "singer_id", insertable = false, updatable = false)
     private int singer_id;
 
@@ -70,5 +73,13 @@ public class Song {
 
     public void setSinger_id(int singer_id) {
         this.singer_id = singer_id;
+    }
+
+    public String getSingerName() {
+        return singerName;
+    }
+
+    public void setSingerName(String singerName) {
+        this.singerName = singerName;
     }
 }
