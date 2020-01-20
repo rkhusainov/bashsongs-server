@@ -17,6 +17,9 @@ public class Song {
 
     private String info;
 
+    @Column(name = "audio_url")
+    private String audioUrl;
+
     @Column(name = "singer_name")
     private String singerName;
 
@@ -65,6 +68,14 @@ public class Song {
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public String getAudioUrl() {
+        return audioUrl;
+    }
+
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
     }
 
     public int getSinger_id() {
